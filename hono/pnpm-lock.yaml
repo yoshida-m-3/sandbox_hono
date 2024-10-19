@@ -21,6 +21,9 @@ importers:
       wrangler:
         specifier: ^3.79.0
         version: 3.81.0(@cloudflare/workers-types@4.20241018.0)
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
 
 packages:
 

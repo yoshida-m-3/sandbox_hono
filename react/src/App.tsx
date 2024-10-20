@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { createClient, Session } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import test from "./api"; // testメソッドをインポート
 
 const supabase = createClient(
   "https://rekfybdlkwrxfjoxruuh.supabase.co",
@@ -24,6 +25,11 @@ function App() {
     });
 
     return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    // testメソッドを実行
+    test().catch(console.error);
   }, []);
 
   if (!session) {

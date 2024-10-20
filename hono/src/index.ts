@@ -1,14 +1,28 @@
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 
 const app = new Hono();
+
+// CORSミドルウェアを追加
+app.use(
+  "/*",
+  cors({
+    origin: "http://localhost:5173", // Reactアプリケーションのオリジン
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization"],
+    exposeHeaders: ["Content-Length"],
+    maxAge: 600,
+    credentials: true,
+  })
+);
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
 
-app.get(
+const route = app.get(
   "/test/:id",
   zValidator(
     "param",
@@ -25,3 +39,4 @@ app.get(
 );
 
 export default app;
+export type AppType = typeof route;

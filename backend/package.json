@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
-    "dev_vite": "vite"
+    "dev_vite": "vite",
+    "build": "vite build"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.2",

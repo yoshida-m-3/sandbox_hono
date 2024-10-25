@@ -1,5 +1,0 @@
-{
-	"devDependencies": {
-		"@hono/vite-dev-server": "^0.16.0"
-	}
-}

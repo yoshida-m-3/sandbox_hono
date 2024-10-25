@@ -1,4 +1,4 @@
-import { AppType } from "../../hono/src/index";
+import { AppType } from "../../backend/src/index";
 import { hc } from "hono/client";
 
 const test = async () => {

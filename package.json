@@ -1,9 +1,11 @@
 {
+  "name": "root",
   "scripts": {
     "backend": "pnpm -F backend",
     "frontend": "pnpm -F frontend"
   },
   "devDependencies": {
     "turbo": "^2.2.3"
-  }
+  },
+  "packageManager": "pnpm@9.12.1"
 }

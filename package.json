@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "backend": "pnpm -F backend",
+    "frontend": "pnpm -F frontend"
+  }
+}

@@ -11,6 +11,7 @@
 		"@hono/node-server": "^1.13.2",
 		"@hono/zod-validator": "^0.4.1",
 		"@supabase/supabase-js": "^2.45.5",
+		"@t3-oss/env-core": "^0.11.1",
 		"add": "^2.0.6",
 		"hono": "^4.6.5",
 		"pnpm": "^9.12.2"

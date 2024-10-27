@@ -1,18 +1,23 @@
 import build from "@hono/vite-build/node";
 import devServer from "@hono/vite-dev-server";
 import { defineConfig } from "vite";
+import path from "path";
 
 export default defineConfig({
-	server: {
-		port: 3000,
-	},
-	plugins: [
-		devServer({
-			entry: "src/index.ts", // The file path of your application.
-		}),
-		build({
-			// Defaults are `src/index.ts`,`./src/index.tsx`,`./app/server.ts`
-			entry: "./src/index.ts",
-		}),
-	],
+  server: {
+    port: 3000,
+  },
+  plugins: [
+    devServer({
+      entry: "src/index.ts", // アプリケーションのファイルパス
+    }),
+    build({
+      entry: "./src/index.ts",
+    }),
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 });

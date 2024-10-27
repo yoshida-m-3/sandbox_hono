@@ -1,22 +1,44 @@
 import React, { useState } from "react";
 import { SupabaseClient } from "../libs/supabase";
+import { hc } from "hono/client";
+import { authorsApp } from "../../../backend/src/routes/authors";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const supabase = SupabaseClient.getInstance().getClient();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { error } = await SupabaseClient.getInstance()
-        .getClient()
-        .auth.signUp({ email, password });
+      const client = hc<typeof authorsApp>("http://localhost:3000/auth");
 
-      if (error) throw error;
-      alert("サインアップ成功！");
+      const response = await client.signup
+        .$post({
+          form: {
+            email,
+            password,
+          },
+        })
+        .then((res) => res.json());
+      console.log(response);
+
+      // if (error) throw error;
+      // if (data.session) {
+      //   // セッション情報を設定
+      //   const session: AppType["Session"] = data.session;
+      //   // ここでセッション情報を使用できます
+      //   console.log("セッション情報:", session);
+      //   alert("サインアップ成功！");
+      // } else {
+      //   // メール確認が必要な場合
+      //   alert("確認メールを送信しました。メールを確認してください。");
+      // }
     } catch (error) {
-      setError(error.message);
+      setError(
+        error instanceof Error ? error.message : "サインアップに失敗しました"
+      );
     }
   };
 

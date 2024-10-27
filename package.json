@@ -3,7 +3,8 @@
   "scripts": {
     "backend": "pnpm -F backend",
     "frontend": "pnpm -F frontend",
-    "dev": "turbo dev"
+    "dev": "turbo dev",
+    "build": "turbo build"
   },
   "devDependencies": {
     "turbo": "^2.2.3"

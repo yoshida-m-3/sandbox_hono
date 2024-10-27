@@ -1,42 +1,23 @@
-import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { z } from "zod";
+import { authorsApp } from "./routes/authors";
 
-const app = new Hono();
-
-// CORSミドルウェアを追加
-app.use(
-	"/*",
-	cors({
-		origin: "http://localhost:5173", // Reactアプリケーションのオリジン
-		allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-		allowHeaders: ["Content-Type", "Authorization"],
-		exposeHeaders: ["Content-Length"],
-		maxAge: 600,
-		credentials: true,
-	}),
-);
-
-app.get("/", (c) => {
-	return c.text("Hello Hono!");
-});
-
-const route = app.get(
-	"/test/:id",
-	zValidator(
-		"param",
-		z.object({
-			id: z.string().regex(/^\d+$/).transform(Number),
-		}),
-	),
-	zValidator("query", z.object({ name: z.string().optional() })),
-	(c) => {
-		const { id } = c.req.valid("param");
-		const { name } = c.req.valid("query");
-		return c.json({ id, name });
-	},
-);
+const app = new Hono()
+  .use(
+    "/*",
+    cors({
+      origin: "http://localhost:5173", // Reactアプリケーションのオリジン
+      allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowHeaders: ["Content-Type", "Authorization"],
+      exposeHeaders: ["Content-Length"],
+      maxAge: 600,
+      credentials: true,
+    })
+  )
+  .get("/", (c) => {
+    return c.text("test");
+  })
+  .route("/auth", authorsApp);
 
 export default app;
-export type AppType = typeof route;
+export type AppType = typeof app;

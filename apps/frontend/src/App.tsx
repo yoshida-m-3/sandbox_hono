@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { createClient, Session } from "@supabase/supabase-js";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import test from "./api"; // testメソッドをインポート
+
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 
@@ -14,24 +12,19 @@ const supabase = createClient(
 function App() {
   const [session, setSession] = useState<Session | null>(null);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
+  // useEffect(() => {
+  //   supabase.auth.getSession().then(({ data: { session } }) => {
+  //     setSession(session);
+  //   });
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange((_event, session) => {
+  //     setSession(session);
+  //   });
 
-    return () => subscription.unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    // testメソッドを実行
-    test().catch(console.error);
-  }, []);
+  //   return () => subscription.unsubscribe();
+  // }, []);
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();

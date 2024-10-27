@@ -3,6 +3,8 @@ import { createClient, Session } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import test from "./api"; // testメソッドをインポート
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 
 const supabase = createClient(
   "https://rekfybdlkwrxfjoxruuh.supabase.co",
@@ -31,10 +33,26 @@ function App() {
     test().catch(console.error);
   }, []);
 
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) console.error("ログアウトエラー:", error);
+  };
+
   if (!session) {
-    return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />;
+    // return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />;
+    return (
+      <>
+        <SignUp />
+        <SignIn />
+      </>
+    );
   } else {
-    return <div>Logged in!</div>;
+    return (
+      <div>
+        <p>Logged in!</p>
+        <button onClick={handleLogout}>ログアウト</button>
+      </div>
+    );
   }
 }
 
